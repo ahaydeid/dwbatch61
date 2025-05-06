@@ -43,3 +43,9 @@ input, .dropdown button{
     font-size: 30px;
     padding: 5px 45px;
 }
+
+span{
+    font-weight: bold;
+    font-size: 25px;
+    justify-content: center;
+}
