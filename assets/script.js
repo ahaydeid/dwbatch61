@@ -3,17 +3,13 @@ let selectedSubject = ""; // variabel untuk menyimpan subject yang dipilih, dibu
 let items = document.querySelectorAll(".dropdown-item");  // Ambil semua element HTML yang punya class .dropdown-item
 let dropdownText = document.getElementById("dropdownText"); // Lokasi ngasih value elemen yang dipilih
 
-items.forEach(item => {
-  item.addEventListener("click", function () {
-    dropdownText.textContent = this.textContent;
+items.forEach(item => {  // Looping semua item yang ada di dropdown
+  item.addEventListener("click", function () { // Ketika item di klik
+    // Ambil value dari item yang di klik
+    dropdownText.textContent = this.textContent; // Tampilkan value yang dipilih di dropdown
     selectedSubject = this.textContent; // Simpan nilai yang dipilih
   });
 });
-
-
-
-
-
 
 // Fungsi untuk ambil value dari inputan biasa
 function getData(event){
