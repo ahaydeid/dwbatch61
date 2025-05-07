@@ -1,31 +1,80 @@
-// Ambil nilai dan tampilkan pilihan subject
-let selectedSubject = ""; // variabel untuk menyimpan subject yang dipilih, dibuat global supaya bisa diakses function getData()
-let items = document.querySelectorAll(".dropdown-item");  // Ambil semua element HTML yang punya class .dropdown-item
-let dropdownText = document.getElementById("dropdownText"); // Lokasi ngasih value elemen yang dipilih
+// Object untuk ubah nilai checkbox menjadi nama file ikon
+const iconMap = {
+  node: "node.svg",
+  react: "react.svg",
+  next: "next.svg",
+  typescript: "typescript.svg",
+};
+// Mulai jalankan fungsi
+function getData(event) {
+  event.preventDefault();
 
-items.forEach(item => {  // Looping semua item yang ada di dropdown
-  item.addEventListener("click", function () { // Ketika item di klik
-    // Ambil value dari item yang di klik
-    dropdownText.textContent = this.textContent; // Tampilkan value yang dipilih di dropdown
-    selectedSubject = this.textContent; // Simpan nilai yang dipilih
+  const checkboxes = document.querySelectorAll(".checkbox");
+
+  let name = document.getElementById("name").value;
+  let start = new Date(document.getElementById("start-date").value);
+  let end = new Date(document.getElementById("end-date").value);
+  let description = document.getElementById("desc").value;
+
+  // Menghitung selisih dalam bulan antara dua tanggal: start dan end
+  // Ambil selisih tahun antara tanggal akhir dan tanggal mulai
+  let yearDifference = end.getFullYear() - start.getFullYear();
+  // Ubah selisih tahun ke bulan
+  let monthsFromYears = yearDifference * 12;
+  // Ambil selisih bulan dari tahun yang sama
+  let monthDifference = end.getMonth() - start.getMonth();
+  // Total durasi dalam bulan
+  let durationInMonths = monthsFromYears + monthDifference;
+
+  let durationLabel = "";
+  if (durationInMonths < 1) {
+    durationLabel = ">1 bulan";
+  } else if (durationInMonths >= 36) {
+    durationLabel = "<3 tahun";
+  } else if (durationInMonths >= 24) {
+    durationLabel = "2 tahun";
+  } else if (durationInMonths >= 12) {
+    durationLabel = "1 tahun";
+  } else {
+    durationLabel = `${durationInMonths} bulan`;
+  }
+
+  // Buat elemen ikon dari checkbox tercentang
+  const iconsHTML = [];
+  checkboxes.forEach((cb) => {
+    if (cb.checked) {
+      const iconName = cb.value;
+      const iconSrc = iconMap[iconName];
+      if (iconSrc) {
+        iconsHTML.push(`<img src="/assets/icon/${iconSrc}" style="width: 40px; height: 40px;" alt="${iconName}">`);
+      }
+    }
   });
-});
 
+  // Buat elemen project card
+  const projectCard = document.createElement("div");
+  projectCard.classList.add("project-card");
+  projectCard.innerHTML = `
+        <img src="/assets/img/komputer.jpeg" alt="" style="width: 100%; height: 250px; object-fit: cover; border-radius: 5px;">
+        <div class="year" style="display: flex;">
+            <h5 class="mt-3" style="font-size: 17px;">${name}</h5>
+            <h5 class="mt-3" style="font-size: 17px;">&nbsp;-&nbsp;${end.getFullYear()}</h5> 
+        </div>
+        <div class="mb-3 text-secondary" style="display: flex;">
+            <h6 class="me-2" style="font-size: 14px;">Durasi :</h6>
+            <h6 style="font-size: 14px;" class="month">${durationLabel}</h6>
+        </div>
+        <div class="desc-box">
+            <p style="font-size: 14px; margin-right: 25px;" id="desc-text">${description}</p>
+        </div>
+        <div class="mb-3 text-secondary d-flex" style="gap: 15px;">
+            ${iconsHTML.join("")}
+        </div>
+        <div class="button-card mb-3" style="display: flex; padding: 5px; gap: 10px;">
+            <button class="btn edit flex-fill">edit</button>
+            <button class="btn delete flex-fill">delete</button>
+        </div>
+    `;
 
-
-// Fungsi untuk ambil value dari inputan biasa
-function getData(event){
-    event.preventDefault()
-
-    let name = document.getElementById("nama").value;
-    let mail = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
-    let message = document.getElementById("pesan").value;
-
-    console.log(name);
-    console.log(mail);
-    console.log(phone);
-    console.log(message);
+  document.querySelector(".project-container").appendChild(projectCard);
 }
-
-// Update dong
