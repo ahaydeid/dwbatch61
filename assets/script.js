@@ -30,7 +30,7 @@ function getData(event) {
   if (durationInMonths < 1) {
     durationLabel = ">1 bulan";
   } else if (durationInMonths >= 36) {
-    durationLabel = "<3 tahun";
+    durationLabel = ">3 tahun";
   } else if (durationInMonths >= 24) {
     durationLabel = "2 tahun";
   } else if (durationInMonths >= 12) {
