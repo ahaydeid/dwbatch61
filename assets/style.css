@@ -41,9 +41,6 @@ label{
     -moz-box-shadow: 1px 3px 11px -1px rgba(0,0,0,0.41);
 }
 
-.dropdown button{
-    width: 100%;
-}
 
 .btn-submit{
     font-size: 30px;
@@ -62,7 +59,7 @@ span{
 
 .project-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns in one row */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns dalam 1 row */
     gap: 20px;
     padding: 20px;
   }

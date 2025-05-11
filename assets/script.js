@@ -10,21 +10,17 @@ function getData(event) {
   event.preventDefault();
 
   const checkboxes = document.querySelectorAll(".checkbox");
-
   let name = document.getElementById("name").value;
   let start = new Date(document.getElementById("start-date").value);
   let end = new Date(document.getElementById("end-date").value);
   let description = document.getElementById("desc").value;
+  let photo = document.getElementById("file-input").files[0];
 
   // Menghitung selisih dalam bulan antara dua tanggal: start dan end
-  // Ambil selisih tahun antara tanggal akhir dan tanggal mulai
-  let yearDifference = end.getFullYear() - start.getFullYear();
-  // Ubah selisih tahun ke bulan
-  let monthsFromYears = yearDifference * 12;
-  // Ambil selisih bulan dari tahun yang sama
-  let monthDifference = end.getMonth() - start.getMonth();
-  // Total durasi dalam bulan
-  let durationInMonths = monthsFromYears + monthDifference;
+  let yearDifference = end.getFullYear() - start.getFullYear();  // Ambil selisih tahun antara tanggal akhir dan tanggal mulai
+  let monthsFromYears = yearDifference * 12;  // Ubah selisih tahun ke bulan
+  let monthDifference = end.getMonth() - start.getMonth();  // Ambil selisih bulan dari tahun yang sama
+  let durationInMonths = monthsFromYears + monthDifference; // Total durasi dalam bulan
 
   let durationLabel = "";
   if (durationInMonths < 1) {
@@ -38,6 +34,10 @@ function getData(event) {
   } else {
     durationLabel = `${durationInMonths} bulan`;
   }
+
+
+  let photoProject = photo? URL.createObjectURL(photo) : "assets/img/logo-dumbways.png";
+
 
   // Buat elemen ikon dari checkbox tercentang
   const iconsHTML = [];
@@ -55,7 +55,7 @@ function getData(event) {
   const projectCard = document.createElement("div");
   projectCard.classList.add("project-card");
   projectCard.innerHTML = `
-        <img src="/assets/img/komputer.jpeg" alt="" style="width: 100%; height: 250px; object-fit: cover; border-radius: 5px;">
+        <img src="${photoProject}" alt="" style="width: 100%; height: 250px; object-fit: cover; border-radius: 5px;">
         <div class="year" style="display: flex;">
             <h5 class="mt-3" style="font-size: 17px;">${name}</h5>
             <h5 class="mt-3" style="font-size: 17px;">&nbsp;-&nbsp;${end.getFullYear()}</h5> 
@@ -78,3 +78,4 @@ function getData(event) {
 
   document.querySelector(".project-container").appendChild(projectCard);
 }
+
