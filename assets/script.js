@@ -35,6 +35,11 @@ function getData(event) {
     durationLabel = `${durationInMonths} bulan`;
   }
 
+  if (isNaN(start.getTime()) || isNaN(end.getTime()) || end < start) {
+  alert("Tanggal mulai atau selesai tidak valid!");
+  return;
+}
+
 
   let photoProject = photo? URL.createObjectURL(photo) : "assets/img/logo-dumbways.png";
 
