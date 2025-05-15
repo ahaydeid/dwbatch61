@@ -45,16 +45,25 @@ function getData(event) {
 
 
   // Buat elemen ikon dari checkbox tercentang
-  const iconsHTML = [];
-  checkboxes.forEach((cb) => {
-    if (cb.checked) {
-      const iconName = cb.value;
-      const iconSrc = iconMap[iconName];
-      if (iconSrc) {
-        iconsHTML.push(`<img src="/assets/icon/${iconSrc}" style="width: 40px; height: 40px;" alt="${iconName}">`);
-      }
-    }
+  // const iconsHTML = [];
+  // checkboxes.forEach((cb) => {
+  //   if (cb.checked) {
+  //     const iconName = cb.value;
+  //     const iconSrc = iconMap[iconName];
+  //     if (iconSrc) {
+  //       iconsHTML.push(`<img src="/assets/icon/${iconSrc}" style="width: 40px; height: 40px;" alt="${iconName}">`);
+  //     }
+  //   }
+  // });
+
+  const iconsHTML = Array.from(checkboxes)
+  .filter(cb => cb.checked && iconMap[cb.value])
+  .map(cb => {
+    const iconName = cb.value;
+    const iconSrc = iconMap[iconName];
+    return `<img src="/assets/icon/${iconSrc}" style="width: 40px; height: 40px;" alt="${iconName}">`;
   });
+
 
   // Buat elemen project card
   const projectCard = document.createElement("div");
@@ -80,7 +89,6 @@ function getData(event) {
             <button class="btn delete flex-fill">delete</button>
         </div>
     `;
-
   document.querySelector(".project-container").appendChild(projectCard);
 }
 
