@@ -61,7 +61,7 @@ function getData(event) {
   .map(cb => {
     const iconName = cb.value;
     const iconSrc = iconMap[iconName];
-    return `<img src="/assets/icon/${iconSrc}" style="width: 40px; height: 40px;" alt="${iconName}">`;
+    return `<img src="assets/icon/${iconSrc}" style="width: 40px; height: 40px;" alt="${iconName}">`;
   });
 
 
